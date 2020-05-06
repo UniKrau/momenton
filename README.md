@@ -71,7 +71,7 @@ from movies a join rating b on a.movie_id=b.movie_id where substr(a.movie_title,
 group by a.a.genre, years 
 order by counts desc;
 
-SELECT years sum(a.counts) as total,avg(a.avgrate) tavg, SUBSTRING_INDEX(SUBSTRING_INDEX(a.genre,'|',help_topic_id+1),'|',-1) AS type  FROM  ans a join mysql.help_topic  on help_topic_id < LENGTH(a.genre)-LENGTH(REPLACE(a.genre,'|',''))+1 group by type, years order by total desc;
+SELECT years, sum(a.counts) as total,avg(a.avgrate) tavg, SUBSTRING_INDEX(SUBSTRING_INDEX(a.genre,'|',help_topic_id+1),'|',-1) AS type  FROM  ans a join mysql.help_topic  on help_topic_id < LENGTH(a.genre)-LENGTH(REPLACE(a.genre,'|',''))+1 group by type, years order by total desc;
 
 ```
 
