@@ -62,12 +62,18 @@ mysql -uroot -pmypassword
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
 FLUSH PRIVILEGES;
 
-popular_query = """select a.genre, substr(a.movie_title,-5,4) as years,count(b.rate) as counts, avg(b.rate) as avgrate  
-                    from movies a join rating b on a.movie_id=b.movie_id where substr(a.movie_title,-5,4) >= (from_unixtime(b.rating_timestamp ,"%Y")-10)  
-                    group by a.genre, years order 
-                    by counts desc;"""
-```
+popular_queries with two steps:
 
+create table ans as 
+select a.a.genre, 
+substr(a.movie_title,-5,4) as years,count(b.rate) as counts, avg(b.rate) as avgrate 
+from movies a join rating b on a.movie_id=b.movie_id where substr(a.movie_title,-5,4) >= (from_unixtime(b.rating_timestamp ,"%Y")-10)
+group by a.a.genre, years 
+order by counts desc;
+
+SELECT  sum(a.counts) as total,avg(a.avgrate) tavg, SUBSTRING_INDEX(SUBSTRING_INDEX(a.genre,'|',help_topic_id+1),'|',-1) AS type  FROM  ans a join mysql.help_topic  on help_topic_id < LENGTH(a.genre)-LENGTH(REPLACE(a.genre,'|',''))+1 group by type order by total desc limit 10;
+
+```
 
 ## Some stats
 
