@@ -69,12 +69,3 @@ class TestMomenton(unittest.TestCase):
         
 if __name__ == "__main__":
     unittest.main()
-
-"""
-echo "# momenton" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git remote add origin https://github.com/UniKrau/momenton.git
-git push -u origin master
-"""

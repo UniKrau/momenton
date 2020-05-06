@@ -86,6 +86,11 @@ class Momenton:
     They want to understand the most popular movie genres, year by year, 
     for the past decade by using user rating from tweets.
     """
+    """select a.movie_title, from_unixtime(b.rating_timestamp,"%Y") as year, avg(b.rate) as avgrate 
+                from movies a join rating b on a.movie_id=b.movie_id  
+                group by a.movie_title,  year 
+                order by avgrate desc limit 500;
+    """
 
     def popular_movie(query):
         try:
