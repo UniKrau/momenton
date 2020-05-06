@@ -44,7 +44,6 @@ No rows affected (0.538 seconds)
 No rows affected (0.963 seconds)
 0: jdbc:hive2://hadoop3:10000> 
 
-create table ans as
 select  a.movie_title, a.genre, substr(a.movie_title,-5,4) as years,count(b.rate) as counts, avg(b.rate) as avgrate ,tv as type
 from movies a join rating b on a.movie_id=b.movie_id 
 lateral view explode(split(a.type,"\\|")) tv as type;
