@@ -32,10 +32,10 @@ rating_table = """
         FOREIGN KEY(movie_id) REFERENCES movies(movie_id)
     );
     """
-popular_query = """select a.movie_title, from_unixtime(b.rating_timestamp,"%Y") as year, avg(b.rate) as avgrate 
-                from movies a join rating b on a.movie_id=b.movie_id  
-                group by a.movie_title,  year 
-                order by avgrate desc limit 500;"""
+popular_query = """select a.movie_title, from_unixtime(b.rating_timestamp,"%Y") as year,count(b.rate) as counts, avg(b.rate) as avgrate 
+from movies a join rating b on a.movie_id=b.movie_id  
+group by a.movie_title,  year 
+order by counts desc limit 100;"""
 class TestMomenton(unittest.TestCase):
 
     def setUp(self):
