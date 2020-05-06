@@ -33,10 +33,10 @@ select from_unixtime(1300464000,"%Y-%m-%d %h %i %s") from table;
 select a.movie_title, from_unixtime(b.rating_timestamp,"%Y") as year, avg(b.rate) as avgrate from movies a join rating b on a.movie_id=b.movie_id  group by a.movie_title,  year order by avgrate desc limit 10;
 """
 
-query = """select a.movie_title, from_unixtime(b.rating_timestamp,"%Y") as year, avg(b.rate) as avgrate 
-                from movies a join rating b on a.movie_id=b.movie_id  
-                group by a.movie_title,  year 
-                order by avgrate desc limit 500;"""
+query = """select a.genre, substr(a.movie_title,-5,4) as years,count(b.rate) as counts, avg(b.rate) as avgrate  
+                    from movies a join rating b on a.movie_id=b.movie_id where substr(a.movie_title,-5,4) >= (from_unixtime(b.rating_timestamp ,"%Y")-10)  
+                    group by a.genre, years order 
+                    by counts desc;"""
 
 @singleton
 class Momenton:
