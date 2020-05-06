@@ -1,4 +1,17 @@
 # MovieTweetings
+
+## Install mysql with docker container
+```bash
+docker pull mysql/mysql-server:8.0.20-1.1.16
+docker run --name=momenton-mysql -p 3306:3306 -d --env="MYSQL_ROOT_PASSWORD=mypassword" mysql/mysql-server:8.0.20-1.1.16
+
+docker exec momenton-mysql -it /bin/bash
+mysql -uroot -pmypassword
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
+FLUSH PRIVILEGES;
+```
+
+
 ## Some stats
 
 Metric | Value
@@ -91,3 +104,4 @@ The ratings contained in the tweets are scaled from 0 to 10, as is the norm on t
 
 
 [Contact me](http://twitter.com/sidooms) if you know of any work (maybe your own?) that can be added to this list!
+
