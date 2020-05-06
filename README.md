@@ -9,6 +9,11 @@ docker exec momenton-mysql -it /bin/bash
 mysql -uroot -pmypassword
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
 FLUSH PRIVILEGES;
+
+popular_query = """select a.genre, substr(a.movie_title,-5,4) as years,count(b.rate) as counts, avg(b.rate) as avgrate  
+                    from movies a join rating b on a.movie_id=b.movie_id where substr(a.movie_title,-5,4) >= (from_unixtime(b.rating_timestamp ,"%Y")-10)  
+                    group by a.genre, years order 
+                    by counts desc;"""
 ```
 
 
