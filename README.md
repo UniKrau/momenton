@@ -65,10 +65,10 @@ FLUSH PRIVILEGES;
 popular_queries with two steps:
 
 create table ans as 
-select a.a.genre, 
+select a.genre, 
 substr(a.movie_title,-5,4) as years,count(b.rate) as counts, avg(b.rate) as avgrate 
 from movies a join rating b on a.movie_id=b.movie_id where substr(a.movie_title,-5,4) >= (from_unixtime(b.rating_timestamp ,"%Y")-10)
-group by a.a.genre, years 
+group by a.genre, years 
 order by counts desc;
 
  SELECT years, sum(a.counts) as total,avg(a.avgrate) total_rates, SUBSTRING_INDEX(SUBSTRING_INDEX(a.genre,'|',help_topic_id+1),'|',-1)
