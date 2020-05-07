@@ -11,14 +11,6 @@ row format serde 'org.apache.hadoop.hive.serde2.RegexSerDe'
 with serdeproperties('input.regex'='(.*)::(.*)','output.format.string'='%1$s %2$s')
 stored as textfile;
 
-create table t_movie(
-movieid bigint,
-moviename string,
-movietype string) 
-row format serde 'org.apache.hadoop.hive.serde2.RegexSerDe' 
-with serdeproperties('input.regex'='(.*)::(.*)::(.*)','output.format.string'='%1$s %2$s %3$s')
-stored as textfile;
-
 create table movies(
 movieid bigint,
 movie_title string,
@@ -36,12 +28,9 @@ row format serde 'org.apache.hadoop.hive.serde2.RegexSerDe'
 with serdeproperties('input.regex'='(.*)::(.*)::(.*)::(.*)','output.format.string'='%1$s %2$s %3$s %4$s')
 stored as textfile;
 
-0: jdbc:hive2://hadoop3:10000> load data local inpath "/hadoop/users.dat" into table user;
-No rows affected (0.928 seconds)
-0: jdbc:hive2://hadoop3:10000> load data local inpath "/hadoop/movies.dat" into table movie;
-No rows affected (0.538 seconds)
+0: jdbc:hive2://hadoop3:10000> load data local inpath "/hadoop/users.dat" into table users;
+0: jdbc:hive2://hadoop3:10000> load data local inpath "/hadoop/movies.dat" into table movies;
 0: jdbc:hive2://hadoop3:10000> load data local inpath "/hadoop/rating.dat" into table rating;
-No rows affected (0.963 seconds)
 0: jdbc:hive2://hadoop3:10000> 
 
 select  a.movie_title, a.genre, substr(a.movie_title,-5,4) as years,count(b.rate) as counts, avg(b.rate) as avgrate ,tv as type
